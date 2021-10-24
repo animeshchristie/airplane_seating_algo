@@ -2,6 +2,7 @@ package com.challenge.seats;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class SeatsFactory {
 	static Map<String, Seats> seats = new HashMap<>();
@@ -14,12 +15,21 @@ public class SeatsFactory {
 		} else if ("window".equals(seatType)) {
 			s = new WindowSeats(input, totalCols);
 			Seats aisleSeat = seats.get("asile");
-			s.setStartNumber(aisleSeat.getTotalSeats() + 1);
+			if (null != aisleSeat) {
+				s.setStartNumber(aisleSeat.getTotalSeats() + 1);
+			} else {
+				s.setStartNumber(1);
+			}
 		} else if ("middle".equals(seatType)) {
 			Seats aisleSeat = seats.get("asile");
 			Seats windowSeat = seats.get("window");
-			s = new MiddleSeats(input, totalCols, windowSeat.getSeatCols(), aisleSeat.getSeatCols());
-			s.setStartNumber(aisleSeat.getTotalSeats() + windowSeat.getTotalSeats() + 1);
+			if (null != aisleSeat) {
+				s = new MiddleSeats(input, totalCols, windowSeat.getSeatCols(), aisleSeat.getSeatCols());
+				s.setStartNumber(aisleSeat.getTotalSeats() + windowSeat.getTotalSeats() + 1);
+			} else {
+				s = new MiddleSeats(input, totalCols, windowSeat.getSeatCols(), Set.of());
+				s.setStartNumber(windowSeat.getTotalSeats() + 1);
+			}
 		} 
 		seats.put(seatType, s);
 		return s;

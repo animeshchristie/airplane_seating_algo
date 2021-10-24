@@ -28,11 +28,12 @@ public class SeatArragementAlgorithm {
 		maxRows = getMaxRow();
 		totalSeats = getTotalSeats();
 		
-		SeatsFactory.setupSeats("asile", input, totalCols);
+		if (input.length > 1) {
+			SeatsFactory.setupSeats("asile", input, totalCols);
+		}
 		SeatsFactory.setupSeats("window", input, totalCols);
 		SeatsFactory.setupSeats("middle", input, totalCols);
 	}
-
 
 	private int getMaxRow() {
 		int  max = 0;

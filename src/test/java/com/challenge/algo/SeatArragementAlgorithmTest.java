@@ -46,6 +46,19 @@ public class SeatArragementAlgorithmTest {
 	}
 	
 	@Test
+	public void arrangePassengers_WithOneBlock_ReturnsOutput() {
+		Integer[][] firstBlock = {{1, 5, 2}, {3, null, 4}};
+		
+		int[][] input = {{3,2}};
+		
+		SeatArragementAlgorithm a = new SeatArragementAlgorithm(input);
+		List<Integer[][]> output = a.arrangePassengers(5);
+		
+		assertThat(output, hasSize(1));
+		assertThat(output.get(0), is(firstBlock));
+	}
+	
+	@Test
 	public void arrangePassengers_WithTwoBlock_ReturnsOutput() {
 		Integer[][] firstBlock = {{6, 11, 1}, {8, 14, 3}};
 		Integer[][] secondBlock = {{2, 12, 13, 7}, {4, 15, null, 9}, {5, null, null, 10}};
@@ -59,5 +72,4 @@ public class SeatArragementAlgorithmTest {
 		assertThat(output.get(0), is(firstBlock));
 		assertThat(output.get(1), is(secondBlock));
 	}
-
 }
