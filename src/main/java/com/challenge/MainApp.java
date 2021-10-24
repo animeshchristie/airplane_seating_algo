@@ -1,5 +1,7 @@
 package com.challenge;
 
+import java.util.List;
+
 import com.challenge.algo.SeatArragementAlgorithm;
 
 public class MainApp {
@@ -12,7 +14,7 @@ public class MainApp {
 		int[][] input = {{3,2}, {4,3}, {2,3}, {3,4}};
 		
 		SeatArragementAlgorithm a = new SeatArragementAlgorithm(input);
-		a.arrangePassengers(30);
-		a.printSeatingArrangement();
+		List<Integer[][]> output = a.arrangePassengers(30);
+		SeatArragementAlgorithm.printSeatingArrangement(output);
 	}		
 }

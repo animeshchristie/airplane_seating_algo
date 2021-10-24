@@ -14,8 +14,7 @@ public class SeatArragementAlgorithm {
 	
 	private int totalCols;
 	private int maxRows;
-	
-	private List<Integer[][]> output;
+	private int totalSeats;
 	
 	public SeatArragementAlgorithm(int[][] input) {
 		super();
@@ -26,8 +25,8 @@ public class SeatArragementAlgorithm {
 	
 	private void init() {
 		totalCols = getTotalCols();
-		
 		maxRows = getMaxRow();
+		totalSeats = getTotalSeats();
 		
 		SeatsFactory.setupSeats("asile", input, totalCols);
 		SeatsFactory.setupSeats("window", input, totalCols);
@@ -51,9 +50,21 @@ public class SeatArragementAlgorithm {
 		return total;
 	}
 
+	private int getTotalSeats() {
+		int  total = 0;
+		for (int[] block : input) {
+			total += block[0] * block[1];
+		}
+		return total;
+	}
 
-	public void arrangePassengers(int totalPassengers) {
-		output = new ArrayList<>();
+	public List<Integer[][]> arrangePassengers(int totalPassengers) {
+		
+		if (totalPassengers > totalSeats) {
+			throw new RuntimeException("Invalid value for total passengers");
+		}
+		
+		List<Integer[][]> output = new ArrayList<>();
 		for (int i = 0; i < input.length; i++) {
 			int row = input[i][1];
 			int col = input[i][0];
@@ -106,9 +117,10 @@ public class SeatArragementAlgorithm {
 				colIndexes.put(k, 0);
 			}
 		}
+		return output;
 	}
 	
-	public void printSeatingArrangement() {
+	public static void printSeatingArrangement(List<Integer[][]> output) {
 		for (Integer[][] integers : output) {
 			for (int k = 0; k < integers.length; k++) {
 				for (int l = 0; l < integers[k].length; l++) {
